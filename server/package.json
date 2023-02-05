@@ -1,0 +1,10 @@
+{
+  "name": "form-builder",
+  "version": "1.0.0",
+  "description": "APIs for form building",
+  "main": "app.js",
+  "repository": "https://github.com/mankhedekar96/sixberries-assignment.git",
+  "author": "Manish Khedekar",
+  "license": "MIT",
+  "private": false
+}
