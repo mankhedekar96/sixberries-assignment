@@ -1,0 +1,6 @@
+# Variables
+PORT=4000
+FRONTEND_DOMAIN=http://localhost:3000
+
+# DB Config
+DB_URL=mongodb://localhost:27017/form-builder
