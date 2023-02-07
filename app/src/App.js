@@ -1,23 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { deleteForm, getForms } from "./api/formService";
+import "./App.css";
 
 function App() {
+  const [forms, setForms] = useState([]);
+  const fetchForms = useCallback(async () => {
+    const response = await getForms();
+    setForms(response.data);
+  }, []);
+
+  useEffect(() => {
+    fetchForms();
+  }, [fetchForms]);
+
+  const removeForm = useCallback(async (id) => {
+    try {
+      await deleteForm(id);
+      fetchForms();
+    } catch(e) {
+      alert('Error while deleting form!');
+      console.log(e);
+    }
+  },[fetchForms]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <h1>List of forms</h1>
+      <div>
+        {forms.length ? (
+            <div>
+              <div className="form-row">
+                <div>Title</div>
+                <div>Form Link</div>
+                <div>Total Questions</div>
+                <div></div>
+              </div>
+              {forms.map(({_id, questions, title}) => (
+                <div className="form-row" key={_id}>
+                  <div>{title}</div>
+                  <div><Link to={`submit/${_id}`}>Form link</Link></div>
+                  <div>{questions.length}</div>
+                  <div>
+                    <button className="remove-form" onClick={() => removeForm(_id)}>
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+        ) : (
+          <p className="error-text">No forms found!</p>
+        )}
+      </div>
+      <Link className="create-form" to="/create">
+        Create form
+      </Link>
     </div>
   );
 }

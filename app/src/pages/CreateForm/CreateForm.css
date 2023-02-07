@@ -1,0 +1,21 @@
+.form-name-input{
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.add-question, .save-question{
+    padding: 10px;
+    margin: 10px;
+    border-color: #6cbc6c;
+    background-color: #6cbc6c;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.question-details {
+    padding: 10px;
+    margin: 10px;
+}

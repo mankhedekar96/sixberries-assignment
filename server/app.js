@@ -1,15 +1,24 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const bodyParser = require("body-parser");
-const { default: Form } = require("./schemas/Form");
+const { Form, Question } = require("./schemas");
 
 const app = express();
+
+const corsOptions = {
+  origin: "http://localhost:3000",
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+
 const PORT = process.env.PORT || 4000;
 
 app.use(bodyParser.json());
 
 // Added to remove warning in logs
-mongoose.set('strictQuery', false);
+mongoose.set("strictQuery", false);
 
 // Connect to MongoDB
 mongoose.connect("mongodb://localhost:27017/form-builder", {
@@ -20,10 +29,16 @@ mongoose.connect("mongodb://localhost:27017/form-builder", {
 // Create a new form
 app.post("/forms", async (req, res) => {
   const form = new Form({
-    questions: req.body.questions,
+    title: req.body.title,
+    questions: [],
   });
 
   try {
+    for (const question of req.body.questions) {
+      const newQuestion = new Question(question);
+      await newQuestion.save();
+      form.questions.push(newQuestion._id);
+    }
     const savedForm = await form.save();
     res.send(savedForm);
   } catch (err) {
@@ -37,6 +52,7 @@ app.get("/forms", async (req, res) => {
     const forms = await Form.find();
     res.send(forms);
   } catch (err) {
+    console.log(err);
     res.status(400).send(err);
   }
 });
