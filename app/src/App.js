@@ -31,15 +31,17 @@ function App() {
         {forms.length ? (
             <div>
               <div className="form-row">
-                <div>Title</div>
-                <div>Form Link</div>
+                <div>Form Name</div>
+                <div>Form URL</div>
                 <div>Total Questions</div>
                 <div></div>
               </div>
               {forms.map(({_id, questions, title}) => (
                 <div className="form-row" key={_id}>
-                  <div>{title}</div>
-                  <div><Link to={`submit/${_id}`}>Form link</Link></div>
+                  <div><b>{title}</b></div>
+                  <div>
+                    <Link to={`submit/${_id}`}>{`${window.location.href}submit/${_id}`}</Link>
+                  </div>
                   <div>{questions.length}</div>
                   <div>
                     <button className="remove-form" onClick={() => removeForm(_id)}>

@@ -8,6 +8,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import CreateForm from './pages/CreateForm';
+import SubmitForm from './pages/SubmitForm';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/create",
     element: <CreateForm />,
+  },
+  {
+    path: "/submit/:formId",
+    element: <SubmitForm />,
   },
 ]);
 

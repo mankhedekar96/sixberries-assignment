@@ -73,7 +73,7 @@ function AddQuestionModal(props) {
           ) : null}
 
           <button className="save-question" type="submit">
-            Save
+            Add
           </button>
           <button className="close-form" onClick={onClose}>
             Close

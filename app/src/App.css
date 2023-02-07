@@ -1,7 +1,7 @@
 .create-form{
   position: absolute;
-  top: 85px;
-  right: 30px;
+  top: 65px;
+  right: 40px;
   padding: 10px;
   border-color: #6cbc6c;
   background-color: #6cbc6c;
@@ -19,7 +19,16 @@
 }
 
 .form-row div {
-  flex: 1;
+  width: 25%;
+}
+.form-row div:nth-child(3) {
+  text-align: center;
+}
+
+.form-row div a {    
+  width: 100%;
+  display: block;
+  word-break: break-all;
 }
 
 .form-row div:last-child {
@@ -37,7 +46,7 @@
 
 .remove-form{
   padding: 5px;
-  margin: 10px;
+  margin: 10px 0;
   border-color: red;
   background-color: red;
   color: white;

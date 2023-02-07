@@ -16,7 +16,6 @@ function CreateForm() {
   const [openCreateForm, setOpenCreateForm] = useState(false);
   const navigate = useNavigate();
 
-
   const onQuestionSubmit = useCallback(
     (question) => setQuestions((prevState) => [...prevState, question]),
     []
@@ -25,15 +24,15 @@ function CreateForm() {
   const onSubmit = useCallback(
     async (e) => {
       e.preventDefault();
-      if(!questions.length) return alert('Please add some questions!');
+      if (!questions.length) return alert("Please add some questions!");
       try {
         await createForm({
           title: formName,
-          questions
+          questions,
         });
         navigate("/");
-      } catch(e) {
-        alert('Error while creating form!');
+      } catch (e) {
+        alert("Error while creating form!");
         console.log(e);
       }
     },
@@ -52,10 +51,12 @@ function CreateForm() {
           onChange={(e) => setFormName(e.target.value)}
           required
         />
-        <button className="save-question" type="submit">Save</button>
+        <button className="save-question" type="submit">
+          Save
+        </button>
         <button
           className="add-question"
-          onClick={(e) => { 
+          onClick={(e) => {
             e.preventDefault();
             setOpenCreateForm(true);
           }}
@@ -71,8 +72,8 @@ function CreateForm() {
       ) : null}
       <div>
         {questions.length ? (
-          questions.map(({ id, title, type, options }) => (
-            <details className="question-details" key={id}>
+          questions.map(({ title, type, options }) => (
+            <details className="question-details" key={title}>
               <summary>{title}</summary>
               <p>Answer type: {AnswerType[type]}</p>
               {options && options.length ? (
